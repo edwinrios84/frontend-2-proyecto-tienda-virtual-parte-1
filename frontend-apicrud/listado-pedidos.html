@@ -146,13 +146,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <form id="form-busqueda-topbar-desktop"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" id="input-busqueda-topbar-desktop" class="form-control bg-light border-0 small" placeholder="Buscar productos, clientes, pedidos o usuarios..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button id="btn-busqueda-topbar-desktop" class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -213,6 +213,18 @@
                         <h1 class="h3 mb-0 text-gray-800">Listado de Pedidos</h1>
                         <a href="crear-pedido.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-plus fa-sm text-white-50"></i> Crear Pedido</a>
+                    </div>
+
+                    <!-- Resultado de busqueda global -->
+                    <div id="contenedor-resultados-busqueda" class="card shadow mb-4 d-none">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Resultados de busqueda</h6>
+                            <button id="btn-limpiar-busqueda" type="button" class="btn btn-sm btn-outline-secondary">Limpiar</button>
+                        </div>
+                        <div class="card-body">
+                            <p id="resumen-busqueda" class="mb-3 text-muted"></p>
+                            <div id="listado-resultados-busqueda"></div>
+                        </div>
                     </div>
 
                     <!-- Content Row -->
@@ -303,11 +315,7 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Los estudiantes deben agregar aquí el JavaScript para cargar pedidos desde la API -->
-    <script>
-        // TODO: Implementar carga de pedidos desde API GET /api/pedidos
-        // Mostrar en la tabla con botones para cambiar estado y eliminar
-        // El estado se puede cambiar con PATCH /api/pedidos/:id/estado
-    </script>
+    <script src="js/topbar-search.js"></script>
 
 </body>
 

@@ -49,6 +49,13 @@ const initializeDatabase = async () => {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
 
+    // Asegurar esquema de fechas aunque la tabla exista de una version anterior.
+    await connection.query(`
+      ALTER TABLE roles
+      MODIFY COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      MODIFY COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `)
+
     // Crear tabla pedidos
     await connection.query(`
       CREATE TABLE IF NOT EXISTS pedido (

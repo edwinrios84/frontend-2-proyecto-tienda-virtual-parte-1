@@ -146,13 +146,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <form id="form-busqueda-topbar-desktop"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" id="input-busqueda-topbar-desktop" class="form-control bg-light border-0 small" placeholder="Buscar productos, clientes, pedidos o usuarios..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button id="btn-busqueda-topbar-desktop" class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -233,6 +233,7 @@
                                 <th>Usuario</th>
                                 <th>Rol</th>
                                 <th>Creado</th>
+                                <th>Actualizado</th>
                                 <th>Acciones</th>
                               </tr>
                             </thead>
@@ -300,11 +301,8 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Los estudiantes deben agregar aquí el JavaScript para cargar usuarios desde la API -->
-    <script>
-        // TODO: Implementar carga de usuarios desde API GET /api/usuarios
-        // Mostrar en la tabla con botones de editar y eliminar
-    </script>
+    <script src="js/roles-crud.js"></script>
+    <script src="js/auth-roles.js"></script>
 
 </body>
 

@@ -146,13 +146,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <form id="form-busqueda-topbar-desktop"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" id="input-busqueda-topbar-desktop" class="form-control bg-light border-0 small" placeholder="Buscar productos, clientes, pedidos o usuarios..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button id="btn-busqueda-topbar-desktop" class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -346,9 +346,21 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Listado de productos</h1>
                         <a href="crear-pro.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-plus fa-sm text-white-50"></i> Crear Producto</a>
+                    </div>
+
+                    <!-- Resultado de busqueda global -->
+                    <div id="contenedor-resultados-busqueda" class="card shadow mb-4 d-none">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Resultados de busqueda</h6>
+                            <button id="btn-limpiar-busqueda" type="button" class="btn btn-sm btn-outline-secondary">Limpiar</button>
+                        </div>
+                        <div class="card-body">
+                            <p id="resumen-busqueda" class="mb-3 text-muted"></p>
+                            <div id="listado-resultados-busqueda"></div>
+                        </div>
                     </div>
 
                     <!-- Content Row -->
@@ -374,7 +386,7 @@
                                 <th>Acciones</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tabla-productos">
                               
                             </tbody>
                           </table>
@@ -407,6 +419,55 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Modal Editar Producto -->
+    <div class="modal fade" id="modal-editar-producto" tabindex="-1" role="dialog" aria-labelledby="titulo-modal-editar-producto"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="formulario-editar-producto">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titulo-modal-editar-producto">Editar Producto</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editar-producto-id">
+
+                        <div class="form-group">
+                            <label for="editar-nombre-pro">Nombre</label>
+                            <input type="text" id="editar-nombre-pro" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editar-descripcion-pro">Descripcion</label>
+                            <textarea id="editar-descripcion-pro" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editar-precio-pro">Precio</label>
+                            <input type="number" id="editar-precio-pro" class="form-control" min="1" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editar-stock-pro">Stock</label>
+                            <input type="number" id="editar-stock-pro" class="form-control" min="0" step="1" required>
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <label for="editar-imagen-pro">Imagen (URL)</label>
+                            <input type="url" id="editar-imagen-pro" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -444,6 +505,9 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/productos-crud.js"></script>
+    <script src="js/auth-roles.js"></script>
+    <script src="js/topbar-search.js"></script>
 
 </body>
 

@@ -146,13 +146,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    <form id="form-busqueda-topbar-desktop"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" id="input-busqueda-topbar-desktop" class="form-control bg-light border-0 small" placeholder="Buscar productos, clientes, pedidos o usuarios..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button id="btn-busqueda-topbar-desktop" class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -171,13 +171,13 @@
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
+                                <form id="form-busqueda-topbar-mobile" class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
+                                        <input type="text" id="input-busqueda-topbar-mobile" class="form-control bg-light border-0 small"
+                                            placeholder="Buscar..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
+                                            <button id="btn-busqueda-topbar-mobile" class="btn btn-primary" type="submit">
                                                 <i class="fas fa-search fa-sm"></i>
                                             </button>
                                         </div>
@@ -318,20 +318,20 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Perfil [N/A]
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Configuración [N/A]
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    Actividad Log [N/A]
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Salir [x]
                                 </a>
                             </div>
                         </li>
@@ -348,7 +348,19 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                                class="fas fa-download fa-sm text-white-50"></i> Generar reporte</a>
+                    </div>
+
+                    <!-- Resultado de busqueda global -->
+                    <div id="contenedor-resultados-busqueda" class="card shadow mb-4 d-none">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Resultados de busqueda</h6>
+                            <button id="btn-limpiar-busqueda" type="button" class="btn btn-sm btn-outline-secondary">Limpiar</button>
+                        </div>
+                        <div class="card-body">
+                            <p id="resumen-busqueda" class="mb-3 text-muted"></p>
+                            <div id="listado-resultados-busqueda"></div>
+                        </div>
                     </div>
 
                     <!-- Content Row -->
@@ -696,6 +708,35 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar sesion</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-login">
+                        <div id="login-alerta" class="alert alert-danger d-none" role="alert"></div>
+
+                        <div class="form-group">
+                            <label for="login-usuario">Usuario</label>
+                            <input type="text" id="login-usuario" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-contrasena">Contrasena</label>
+                            <input type="password" id="login-contrasena" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -732,6 +773,8 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/auth-roles.js"></script>
+    <script src="js/topbar-search.js"></script>
 
 </body>
 
