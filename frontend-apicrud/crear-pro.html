@@ -354,7 +354,7 @@
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-6">
-                            <form>
+                            <form id="formulario-producto">
                           
                                 <!-- Text input -->
                                 <div data-mdb-input-init class="form-outline mb-4">
@@ -382,19 +382,19 @@
     
                                 <!-- Number input -->
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                  <input type="number" id="form6Example6" class="form-control" />
-                                  <label class="form-label" for="form6Example6">Stock</label>
+                                  <input type="number" id="stock-pro" class="form-control" />
+                                  <label class="form-label" for="stock-pro">Stock</label>
                                 </div>
                               
                                 <!-- Message input -->
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                  <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-                                  <label class="form-label" for="form6Example7">Descripcion</label>
+                                  <textarea class="form-control" id="descripcion-pro" rows="4"></textarea>
+                                  <label class="form-label" for="descripcion-pro">Descripcion</label>
                                 </div>
                             
                               
                                 <!-- Submit button -->
-                                <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Crear Producto</button>
+                                <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Crear Producto</button>
                             </form>
                         </div>
                         <div class="col-5">
@@ -467,6 +467,8 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/productos-crud.js"></script>
+    <script src="js/auth-roles.js"></script>
 
     <script>
         let imagenes = [
