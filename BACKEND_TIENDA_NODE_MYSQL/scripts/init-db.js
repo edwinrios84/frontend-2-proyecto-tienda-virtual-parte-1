@@ -1,11 +1,11 @@
-const mysql = require("mysql2/promise")
+﻿const mysql = require("mysql2/promise")
 require("dotenv").config()
 
-console.log("🔧 Inicializando base de datos MySQL...")
+console.log("ðŸ”§ Inicializando base de datos MySQL...")
 
 const initDatabase = async () => {
   try {
-    // Crear conexión sin base de datos para crear la BD
+    // Crear conexiÃ³n sin base de datos para crear la BD
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST || "localhost",
       port: process.env.DB_PORT || 3306,
@@ -16,7 +16,7 @@ const initDatabase = async () => {
     // Crear base de datos
     const dbName = process.env.DB_NAME || "inventario_db"
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`)
-    console.log(`✅ Base de datos '${dbName}' creada o ya existe`)
+    console.log(`âœ… Base de datos '${dbName}' creada o ya existe`)
 
     // Usar la base de datos
     await connection.query(`USE ${dbName}`)
@@ -35,7 +35,7 @@ const initDatabase = async () => {
         INDEX idx_nombre (nombre)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
-    console.log("✅ Tabla 'productos' creada o ya existe")
+    console.log("âœ… Tabla 'productos' creada o ya existe")
 
     // Crear tabla clientes
     await connection.query(`
@@ -53,7 +53,7 @@ const initDatabase = async () => {
         INDEX idx_email (email)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
-    console.log("✅ Tabla 'clientes' creada o ya existe")
+    console.log("âœ… Tabla 'clientes' creada o ya existe")
 
     // Crear tabla roles (usuarios)
     await connection.query(`
@@ -66,7 +66,14 @@ const initDatabase = async () => {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
-    console.log("✅ Tabla 'roles' creada o ya existe")
+    console.log("âœ… Tabla 'roles' creada o ya existe")
+
+    // Asegurar esquema de fechas aunque la tabla exista de una version anterior.
+    await connection.query(`
+      ALTER TABLE roles
+      MODIFY COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      MODIFY COLUMN updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `)
 
     // Crear tabla pedidos
     await connection.query(`
@@ -81,7 +88,7 @@ const initDatabase = async () => {
         INDEX idx_cliente (id_cliente)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
-    console.log("✅ Tabla 'pedido' creada o ya existe")
+    console.log("âœ… Tabla 'pedido' creada o ya existe")
 
     // Crear tabla detalle_pedido
     await connection.query(`
@@ -97,10 +104,10 @@ const initDatabase = async () => {
         INDEX idx_producto (id_producto)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `)
-    console.log("✅ Tabla 'detalle_pedido' creada o ya existe")
+    console.log("âœ… Tabla 'detalle_pedido' creada o ya existe")
 
     // Insertar datos de ejemplo
-    console.log("📝 Insertando datos de ejemplo...")
+    console.log("ðŸ“ Insertando datos de ejemplo...")
 
     // Usuario administrador
     try {
@@ -205,14 +212,15 @@ const initDatabase = async () => {
       if (err.code !== "ER_DUP_ENTRY") throw err
     }
 
-    console.log("✅ Datos de ejemplo insertados")
+    console.log("âœ… Datos de ejemplo insertados")
 
     await connection.end()
-    console.log("✅ Base de datos MySQL inicializada correctamente")
+    console.log("âœ… Base de datos MySQL inicializada correctamente")
   } catch (error) {
-    console.error("❌ Error al inicializar la base de datos:", error.message)
+    console.error("âŒ Error al inicializar la base de datos:", error.message)
     process.exit(1)
   }
 }
 
 initDatabase()
+

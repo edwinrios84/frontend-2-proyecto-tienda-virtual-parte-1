@@ -27,11 +27,12 @@
 
     const urlsCandidatas = [];
 
+    // Priorizar el backend local, que es donde corre la API en este proyecto.
+    urlsCandidatas.push("http://localhost:3000/api/usuarios");
+
     if (window.location.protocol !== "file:") {
       urlsCandidatas.push(`${window.location.origin}/api/usuarios`);
     }
-
-    urlsCandidatas.push("http://localhost:3000/api/usuarios");
 
     return [...new Set(urlsCandidatas)];
   }
@@ -61,7 +62,10 @@
    * @returns {Promise<Response>}
    */
   async function fetchRolesConFallback(ruta = "", opciones = {}) {
-    const basesAIntentar = apiRolesUrlActiva ? [apiRolesUrlActiva] : apiRolesUrlsCandidatas;
+    const metodoHttp = (opciones.method || "GET").toUpperCase();
+    const basesAIntentar = apiRolesUrlActiva
+      ? [apiRolesUrlActiva, ...apiRolesUrlsCandidatas.filter((urlBase) => urlBase !== apiRolesUrlActiva)]
+      : apiRolesUrlsCandidatas;
     let ultimaRespuesta = null;
     let ultimoErrorConexion = null;
 
@@ -70,7 +74,11 @@
         const respuesta = await fetch(construirUrlApi(baseUrl, ruta), opciones);
         ultimaRespuesta = respuesta;
 
-        if (!apiRolesUrlActiva && respuesta.status === 404 && basesAIntentar.length > 1) {
+        // Si la base no sirve (404/405), intenta la siguiente candidata.
+        if (
+          (respuesta.status === 404 || respuesta.status === 405) &&
+          basesAIntentar.indexOf(baseUrl) < basesAIntentar.length - 1
+        ) {
           continue;
         }
 
@@ -262,7 +270,7 @@
     if (!roles.length) {
       tablaUsuariosBody.innerHTML = `
         <tr>
-          <td colspan="5" class="text-center text-muted">No hay registros para mostrar.</td>
+          <td colspan="6" class="text-center text-muted">No hay registros para mostrar.</td>
         </tr>
       `;
       return;
@@ -273,6 +281,9 @@
         const fechaCreacion = rolActual.created_at
           ? new Date(rolActual.created_at).toLocaleString("es-CO")
           : "N/D";
+        const fechaActualizacion = rolActual.updated_at
+          ? new Date(rolActual.updated_at).toLocaleString("es-CO")
+          : "N/D";
 
         return `
           <tr>
@@ -280,6 +291,7 @@
             <td>${escaparHtml(rolActual.usuario)}</td>
             <td>${escaparHtml(rolActual.rol)}</td>
             <td>${escaparHtml(fechaCreacion)}</td>
+            <td>${escaparHtml(fechaActualizacion)}</td>
             <td>
               <button type="button" class="btn btn-sm btn-warning btn-editar mr-1" data-id="${escaparHtml(rolActual.id)}">
                 Editar
